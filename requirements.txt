@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+matplotlib
+scikit-learn
+wordcloud
+nltk
+Sastrawi
+textblob
+google-play-scraper
+gensim
+pyLDAvis
