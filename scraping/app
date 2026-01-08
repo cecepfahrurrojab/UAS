@@ -1,0 +1,11 @@
+import pandas as pd
+import re
+
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-zA-Z0-9\s]', ' ', text)  # hapus tanda baca
+    text = re.sub(r'\s+', ' ', text)             # hapus spasi berlebih
+    text = text.strip()
+    return text
+
+df['clean_review'] = df['content'].apply(clean_text)

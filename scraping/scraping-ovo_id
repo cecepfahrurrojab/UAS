@@ -1,0 +1,43 @@
+from google_play_scraper import reviews, Sort
+import pandas as pd
+import time
+
+app_id = "ovo.id"
+max_limit = 2000   # batas scraping
+
+all_reviews = []
+continuation_token = None
+
+print("Mulai scraping...")
+
+while len(all_reviews) < max_limit:
+    result, continuation_token = reviews(
+        app_id,
+        lang="id",
+        country="id",
+        sort=Sort.NEWEST,
+        count=200,
+        continuation_token=continuation_token
+    )
+
+    if not result:   # kalau sudah tidak ada data
+        break
+
+    all_reviews.extend(result)
+    print(f"Total komentar terkumpul: {len(all_reviews)}")
+
+    # delay untuk menghindari ban
+    time.sleep(1)
+
+    if continuation_token is None:
+        break
+
+# potong jika lebih dari 2000
+all_reviews = all_reviews[:max_limit]
+
+# simpan ke file
+df = pd.DataFrame(all_reviews)
+df.to_csv("komentar_ovo.csv", index=False)
+
+print("Selesai! Total komentar:", len(df))
+print("File tersimpan sebagai 'komentar_ovo.csv'")

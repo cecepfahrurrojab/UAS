@@ -1,0 +1,6 @@
+HASIL RINGKASAN SENTIMEN
+sentimen
+netral     1034
+negatif     499
+positif     467
+Name: count, dtype: int64
